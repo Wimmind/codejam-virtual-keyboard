@@ -1,0 +1,121 @@
+body {
+    background-color: darkgrey;
+    margin:0 auto;
+    
+}
+
+#keyboard {
+    display: block;
+    border: 2px solid black ;
+    padding: 5px;
+    width: 730px;
+    margin:0 auto;
+    height: 250px;
+}
+
+.word{
+    background-color: #37393d;
+    width: 40px;
+    height: 40px;
+    border: 1px solid black ;
+    float: left;
+    margin: 3px;
+    color: cyan;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.word p {
+    text-align: center;
+}
+
+.word_tab {
+    background-color: #37393d;
+    width: 50px;
+    height: 40px;
+    border: 1px solid black ;
+    float: left;
+    margin: 3px;
+    color: cyan;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.word_bcs {
+    background-color: #37393d;
+    width: 97px;
+    height: 40px;
+    border: 1px solid black ;
+    float: left;
+    margin: 3px;
+    color: cyan;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.word_es {
+    background-color: #37393d;
+    width: 89px;
+    height: 40px;
+    border: 1px solid black ;
+    float: left;
+    margin: 3px;
+    color: cyan;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.word_space {
+    background-color: #37393d;
+    width: 337px;
+    height: 40px;
+    border: 1px solid black ;
+    float: left;
+    margin: 3px;
+    color: cyan;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+.word:hover{
+    border-radius: 20px;
+}
+.word_tab:hover{
+    border-radius: 20px;
+}
+.word_bcs:hover{
+    border-radius: 20px;
+}
+.word_es:hover{
+    border-radius: 20px;
+}
+.word_space:hover{
+    border-radius: 20px;
+}
+
+
+.clearfix {
+    clear: both;
+}
+
+
+
+.active {
+    background-color: darkslateblue;
+}
+
+
+#area {
+    width:730px;
+    margin:0 auto;
+    box-sizing: border-box;
+    height: 250px;
+    border: 1px solid black;
+    display: block;
+  }
+  
+  form label {
+    display: inline;
+    white-space: nowrap;
+  }
