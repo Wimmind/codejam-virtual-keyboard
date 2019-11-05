@@ -26,35 +26,35 @@ function init_en(){
         loop:
         for (let i = 0; i < keyboard_en.length; i++){
             if(keyboard_en[i] === "Backspace"){
-                out += '<div class="word_bcs" data="'+keyboard_code[i]+'"><p>Backspace</p></div>';
+                out += '<div class="word_bcs click" data="'+keyboard_code[i]+'"><p>Backspace</p></div>';
                 continue loop;
             }
             if(keyboard_en[i] === "Tab"){
-                out += '<div class="word_tab" data="'+keyboard_code[i]+'"><p>Tab</p></div>';
+                out += '<div class="word_tab click" data="'+keyboard_code[i]+'"><p>Tab</p></div>';
                 continue loop;
             }
             if(keyboard_en[i] === "CapsLock"){
-                out += '<div class="word_bcs" data="'+keyboard_code[i]+'"><p>CapsLock</p></div>';
+                out += '<div class="word_bcs click" data="'+keyboard_code[i]+'"><p>CapsLock</p></div>';
                 continue loop;
             }
             if(keyboard_en[i] === "Enter"){
-                out += '<div class="word_es" data="'+keyboard_code[i]+'"><p>Enter</p></div>';
+                out += '<div class="word_es click" data="'+keyboard_code[i]+'"><p>Enter</p></div>';
                 continue loop;
             }
             if(keyboard_en[i] === "ShiftL"){
-                out += '<div class="word_bcs" data="'+keyboard_code[i]+'"><p>ShiftL</p></div>';
+                out += '<div class="word_bcs click" data="'+keyboard_code[i]+'"><p>ShiftL</p></div>';
                 continue loop;
             }
             if(keyboard_en[i] === 'ShiftR'){
-                out += '<div class="word_es" data="'+keyboard_code[i]+'"><p>ShiftR</p></div>';
+                out += '<div class="word_es click" data="'+keyboard_code[i]+'"><p>ShiftR</p></div>';
                 continue loop;
             }
             if(keyboard_en[i] === "Space"){
-                out += '<div class="word_space" data="'+keyboard_code[i]+'"><p></p></div>';
+                out += '<div class="word_space click" data="'+keyboard_code[i]+'"><p> </p></div>';
                 continue loop;
             }
             else {
-                out +='<div class="word" data="'+keyboard_code[i]+'"><p>'+(keyboard_en[i])+'</p></div>';
+                out +='<div class="word click" data="'+keyboard_code[i]+'"><p>'+(keyboard_en[i])+'</p></div>';
             }
     }
     document.querySelector('#keyboard').innerHTML = out;
@@ -64,26 +64,22 @@ init_en();
 
 document.onkeypress = function(e){
 
-    document.querySelectorAll('#keyboard .word').forEach(function(elem){
+    document.querySelectorAll('.click').forEach(function(elem){
         elem.classList.remove('active');
     });
-    document.querySelector('#keyboard .word[data="'+e.code+'"]').classList.add('active');
-
-
-    document.querySelector('#keyboard .word_tab[data="'+e.code+'"]').classList.add('active');
-    document.querySelector('#keyboard .word_bcs[data="'+e.code+'"]').classList.add('active');
-    document.querySelector('#keyboard .word_es[data="'+e.code+'"]').classList.add('active');
-    document.querySelector('#keyboard .word_space[data="'+e.code+'"]').classList.add('active');
+    document.querySelector('.click[data="'+e.code+'"]').classList.add('active');
+    document.querySelector('#area').textContent+=document.querySelector('.active p').textContent;
 }
 
 
 
-
-document.querySelectorAll('#keyboard .word').forEach(function(elem){
+document.querySelectorAll('.click').forEach(function(elem){
     elem.onclick = function(e){
-        document.querySelectorAll('#keyboard .word').forEach(function(elem){
+        document.querySelectorAll('.click').forEach(function(elem){
             elem.classList.remove('active');
         });
         this.classList.add('active');
+        //console.log(document.querySelector('.active p').textContent);
+        document.querySelector('#area').textContent+=document.querySelector('.active p').textContent;
     }
 });

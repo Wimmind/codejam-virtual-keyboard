@@ -77,22 +77,10 @@ body {
     cursor: pointer;
 }
 
+.click:hover{
+    border-radius: 20px;
+}
 
-.word:hover{
-    border-radius: 20px;
-}
-.word_tab:hover{
-    border-radius: 20px;
-}
-.word_bcs:hover{
-    border-radius: 20px;
-}
-.word_es:hover{
-    border-radius: 20px;
-}
-.word_space:hover{
-    border-radius: 20px;
-}
 
 
 .clearfix {
