@@ -77,9 +77,6 @@ body {
     cursor: pointer;
 }
 
-.click:hover{
-    border-radius: 20px;
-}
 
 
 
@@ -91,7 +88,9 @@ body {
 
 .active {
     background-color: darkslateblue;
+    border-radius: 20px;
 }
+
 
 
 #area {
@@ -101,6 +100,7 @@ body {
     height: 250px;
     border: 1px solid black;
     display: block;
+    font-size: 30px;
   }
   
   form label {
