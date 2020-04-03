@@ -15,6 +15,11 @@ window.onload = ()=> {
   keyboard.classList.add('keyboard');
   document.querySelector('.wrapper').append(keyboard);
 
+  let description = document.createElement('h1');
+  description.innerText = "смена языка - leftCtrl+leftAlt"
+  description.classList.add('h1')
+  document.querySelector('.wrapper').append(description);
+
   let buttons = [
       [
         ['Backquote', 'ё', 'Ё', '`', '~'], ['Digit1', '1', '!', '1', '!'], ['Digit2', '2', '"', '2', '@'], ['Digit3', '3', '№', '3', '#'], ['Digit4', '4', ';', '4', '$'],
@@ -44,18 +49,32 @@ window.onload = ()=> {
   ];
 
 
-  let ruSmall = 1;
-  let engSmall = 3;
+  let firstlineS = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '|'];
 
+  let lang = 1;
 
-  let ctrlAlt = false; //рус
   let capslockButton = false;
 
+  let ctrlB = false; 
+  let altB = false;
+
+  let ctrlAlt =false;
 
   let shiftButton = false;
 
+  let systemDraw = false;
+
   let generateKeyboard = (elem,shift) => {
+
+    let activeButtons = document.querySelectorAll('.active');
+    let masValue = [];
+    activeButtons.forEach((elem) => {
+        console.log(elem)
+        masValue.push(elem.getAttribute('system-value'));
+    });
+    
     keyboard.innerHTML = '';
+
     for (let i = 1; i <= 5; i++) {
         let keyboardRow = document.createElement('div');
         keyboardRow.classList.add('keyboard-row',`keyboard__row-${i}`,);
@@ -100,11 +119,91 @@ window.onload = ()=> {
                     buttonKey.setAttribute('system-value', button[0]);
                 }
             }
-
+           
         });
     }
+    let circleCapsLock = document.createElement('div');
+    circleCapsLock.classList.add('circleCapsLock')
+    document.querySelector(`[system-value=CapsLock]`).append(circleCapsLock);
+
+    for (let i = 0;i<masValue.length-1;i++){
+        let elem = document.querySelector(`[system-value=${masValue[i]}]`); 
+        console.log(elem)
+        elem.classList.add('active');
+    }
   }
-  generateKeyboard(ruSmall,shiftButton);
+
+  let generateKeyboardFirst = (elem,shift) => {
+
+    let activeButtons = document.querySelectorAll('.active');
+    let masValue = [];
+    activeButtons.forEach((elem) => {
+        console.log(elem)
+        masValue.push(elem.getAttribute('system-value'));
+    });
+    
+    keyboard.innerHTML = '';
+
+    for (let i = 1; i <= 5; i++) {
+        let keyboardRow = document.createElement('div');
+        keyboardRow.classList.add('keyboard-row',`keyboard__row-${i}`,);
+        document.querySelector('.keyboard').append(keyboardRow);
+
+        buttons[i-1].forEach((button) => {  
+
+            let buttonKey = document.createElement('div');
+            buttonKey.classList.add('key');
+            document.querySelector(`.keyboard__row-${i}`).append(buttonKey);
+
+            if (button[0] === 'Backspace' || button[0] === 'CapsLock' || button[0] === 'ShiftLeft' || button[0] === 'ShiftRight' || button[0] === 'Enter') {
+                buttonKey.classList.add('key_medium', 'system');
+            }
+            if (button[0] === 'ControlLeft' || button[0] === 'ControlRight') {
+                buttonKey.classList.add('key_small', 'system');
+            }
+            if (button[0] === 'Space') {
+                buttonKey.classList.add('key_big', 'system');
+            }
+            if (button[0] === 'MetaLeft' || button[0] === 'AltLeft' || button[0] === 'AltRight' || button[0] === 'Delete' || button[0] === 'Tab') {
+                buttonKey.classList.add('system');
+            }
+
+            if (!shift){
+                buttonKey.textContent = button[elem];
+                if (!buttonKey.classList.contains('system')) {
+                    buttonKey.setAttribute('value', button[elem]);
+                    buttonKey.setAttribute('system-value', button[0]);
+                } else {
+                    buttonKey.setAttribute('value', '');
+                    buttonKey.setAttribute('system-value', button[0]);
+                }
+            }
+            else {
+                buttonKey.textContent = button[elem+1];
+                if (!buttonKey.classList.contains('system')) {
+                    buttonKey.setAttribute('value', button[elem+1]);
+                    buttonKey.setAttribute('system-value', button[0]);
+                } else {
+                    buttonKey.setAttribute('value', '');
+                    buttonKey.setAttribute('system-value', button[0]);
+                }
+            }
+           
+        });
+    }
+    let circleCapsLock = document.createElement('div');
+    circleCapsLock.classList.add('circleCapsLock')
+    document.querySelector(`[system-value=CapsLock]`).append(circleCapsLock);
+
+    for (let i = 0;i<masValue.length-1;i++){
+        let elem = document.querySelector(`[system-value=${masValue[i]}]`); 
+        console.log(elem)
+        elem.classList.add('active');
+    }
+    
+
+  }
+  generateKeyboardFirst(lang,shiftButton);
 
   let backspaceFunc = () =>{
     document.querySelector('.textarea').value = document.querySelector('.textarea').value.slice(0, -1);
@@ -165,9 +264,12 @@ window.onload = ()=> {
         }
         if (systemValue === 'CapsLock') {
             if (!capslockButton) {
+                document.querySelector('.circleCapsLock').classList.add('capsActive');
                 capslockButton = true;
+               
             }
             else {
+                document.querySelector('.circleCapsLock').classList.remove('capsActive');
                 capslockButton = false;
             }
         }
@@ -177,174 +279,93 @@ window.onload = ()=> {
   // клавиша клавиутры нажатие
 
 
-
-  /*document.querySelector('.keyboard').addEventListener('keydown', (event) => {
-    console.log(event.code)
-    event.preventDefault();
-    if (event.target.classList.contains('key')){
-        document.querySelector('.textarea').focus();
-        let systemValue = event.target.getAttribute('system-value');
-        let pressedButton = event.code;
-
-        if (pressedButton === systemValue) {
-            buttonKey.classList.add('active');
-            if (!capslockButton){
-                document.querySelector('.textarea').value += event.target.getAttribute('value');
-            }
-            else {
-                document.querySelector('.textarea').value += event.target.getAttribute('value').toUpperCase();
-            }
-        }
-        if (pressedButton === systemValue && systemValue === 'Backspace') {
-            backspaceFunc();
-        }
-        if (pressedButton === systemValue && systemValue === 'Tab') {
-            tabFunc();
-        }
-        if (pressedButton === systemValue && systemValue === 'Space') {
-            spaceFunc();
-        }
-        if (pressedButton === systemValue && systemValue === 'Enter') {
-            enterFunc();
-        }
-        if (pressedButton === systemValue && systemValue === 'Delete') {
-            deleteFunc();
-        }
-        if (pressedButton === systemValue && systemValue === 'ShiftLeft') {
-            shiftButton =true;
-            generateKeyboard(ruSmall,shiftButton);
-            
-        }
-        if (pressedButton === systemValue && systemValue === 'CapsLock') {
-            if (!capslockButton) {
-                capslockButton = true;
-            }
-            else {
-                capslockButton = false;
-            }
-        }
-        if (pressedButton === systemValue && systemValue === 'AltLeft') {
-            if (!ctrlAlt){
-                ctrlAlt = true;
-                generateKeyboard(engSmall,shiftButton);
-            }
-            else {
-                ctrlAlt = false;
-                generateKeyboard(ruSmall,shiftButton);
-            }
-        }
-
-    }
-  });
-
-
-  document.querySelector('.keyboard').addEventListener('keyup', (event) => {
-    if (event.target.classList.contains('key')){
-        let pressedButton = event.code;
-        let systemValue = event.target.getAttribute('system-value');
-        if (pressedButton === systemValue && systemValue === 'ShiftLeft') {
-            shiftButton = false;
-            generateKeyboard(ruSmall,shiftButton);
-        }
-        if (pressedButton === systemValue) {
-            event.target.classList.remove('active');
-        }
-    }
-  });
-   */
-
-  let ctrl;
-  let alt;
-
   document.addEventListener('keydown', (event) => {
     event.preventDefault();
     document.querySelector('.textarea').focus();
     
-    document.querySelectorAll('.key').forEach((buttonKey) => {
-        let systemValue = buttonKey.getAttribute('system-value');
-        let pressedButton = event.code;
+        let buttonKey = document.querySelector(`[system-value=${event.code}]`); 
 
-        if (pressedButton === systemValue) {
-            buttonKey.classList.add('active');
-            if (!capslockButton){
-                document.querySelector('.textarea').value += buttonKey.getAttribute('value');
-            }
-            else {
-                document.querySelector('.textarea').value += buttonKey.getAttribute('value').toUpperCase();
-            }
+        buttonKey.classList.add('active');
+
+        let systemValue = buttonKey.getAttribute('system-value');
+
+        if (!capslockButton){
+            document.querySelector('.textarea').value += buttonKey.getAttribute('value');
         }
-        if (pressedButton === systemValue && systemValue === 'Backspace') {
+        else {
+            document.querySelector('.textarea').value += buttonKey.getAttribute('value').toUpperCase();
+        }
+    
+        if (systemValue === 'Backspace') {
             backspaceFunc();
         }
-        if (pressedButton === systemValue && systemValue === 'Tab') {
+        if (systemValue === 'Tab') {
             tabFunc();
         }
-        if (pressedButton === systemValue && systemValue === 'Space') {
+        if (systemValue === 'Space') {
             spaceFunc();
         }
-        if (pressedButton === systemValue && systemValue === 'Enter') {
+        if (systemValue === 'Enter') {
             enterFunc();
         }
-        if (pressedButton === systemValue && systemValue === 'Delete') {
+        if (systemValue === 'Delete') {
             deleteFunc();
         }
-        if (pressedButton === systemValue && systemValue === 'ShiftLeft') {
-            shiftButton =true;
-            generateKeyboard(ruSmall,shiftButton);
+        if (systemValue === 'ShiftLeft') {
+            shiftButton = true;
+            generateKeyboard(lang,shiftButton);
             
         }
-        if (pressedButton === systemValue && systemValue === 'CapsLock') {
+        if (systemValue === 'CapsLock') {
+
             if (!capslockButton) {
+                document.querySelector('.circleCapsLock').classList.add('capsActive');
                 capslockButton = true;
             }
             else {
+                document.querySelector('.circleCapsLock').classList.remove('capsActive');
                 capslockButton = false;
             }
         }
-       /* if (pressedButton === systemValue && systemValue === 'AltLeft' ) {
+
+        if (systemValue === 'AltLeft') {
+           altB = true;
+        }
+        if (systemValue === 'ControlLeft') {
+           ctrlB =true;
+        }
+        if (altB && ctrlB) {
             if (!ctrlAlt){
+                lang=3;
                 ctrlAlt = true;
-                generateKeyboard(engSmall,shiftButton);
             }
             else {
+                lang=1;
                 ctrlAlt = false;
-                generateKeyboard(ruSmall,shiftButton);
             }
-        }*/
-        if (buttonKey.getAttribute('system-value')==='ControlLeft'){
-            ctrl = buttonKey;
-        } 
-        if (buttonKey.getAttribute('system-value')==='AltLeft') {
-            alt = buttonKey;
+            generateKeyboard(lang,shiftButton);
         }
-
-    });
   });
+
+
     // клавиша клавиутры отжатие
     document.addEventListener('keyup', (event) => {
-        let pressedButton = event.code;
-        document.querySelectorAll('.key').forEach((buttonKey) => {
-            let systemValue = buttonKey.getAttribute('system-value');
-            if (pressedButton === systemValue && systemValue === 'ShiftLeft') {
-                shiftButton = false;
-                generateKeyboard(ruSmall,shiftButton);
-            }
-            if (pressedButton === systemValue) {
-                buttonKey.classList.remove('active');
-            }
-        });
+        let buttonKey = document.querySelector(`[system-value=${event.code}]`); // клавиша по которой тыкнули
+        buttonKey.classList.remove('active')
+
+        let systemValue = buttonKey.getAttribute('system-value');
+
+        if (systemValue === 'AltLeft') {
+            altB = false;
+        }
+         if (systemValue === 'ControlLeft') {
+            ctrlB =false;
+        }
+
+        if (systemValue === 'ShiftLeft') {
+            shiftButton = false;
+            generateKeyboard(lang,shiftButton);
+        }
     });
-
-    if (ctrl.classList.contains('active') && alt.classList.contains('active')) {
-        if (!ctrlAlt){
-            ctrlAlt = true;
-            generateKeyboard(engSmall,shiftButton);
-        }
-        else {
-            ctrlAlt = false;
-            generateKeyboard(ruSmall,shiftButton);
-        }
-    }
-
 
 };

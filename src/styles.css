@@ -14,7 +14,6 @@
 
 body {
     font-size: 14px;
-    font-family: Bangers;
     background-color: #fff;
 }
 
@@ -36,7 +35,8 @@ body {
     outline: none;
 }
 
-.keyboard {
+.keyboard {   
+    font-family: Bangers;
     width: 700px;
     height: 240px;
     margin: 10px auto;
@@ -64,6 +64,7 @@ body {
     line-height: 40px;
     color: cyan;
     font-size: 16px;
+    position: relative;
 }
 
 .key_medium {
@@ -81,11 +82,30 @@ body {
 
 .key:hover {
     cursor: pointer;
+    background-color: blueviolet;
 }
 
 .active {
-    background-color: darkslateblue;
+    background-color: blueviolet;
     border-radius: 20px;
     transition: all 0.3 ease-in-out;
 }
 
+.circleCapsLock {
+    width: 10px;
+    height: 10px;
+    background: grey;
+    border-radius: 50%;
+    position: absolute;
+    top: 14px;
+    right: 7px;
+}
+
+.capsActive {
+    background: lawngreen;
+}
+
+.h1 {
+    font-size: 30px;
+    color: red
+}
