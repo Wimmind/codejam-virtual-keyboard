@@ -4,7 +4,7 @@
     font-style: normal;
     font-weight: 400;
     src: local('bangers-regular'), local('bangers regular'),
-    url('./fonts/bangers-regular.otf') format("opentype");
+    url('./fonts/bangers-regular.otf') format("truetype");
 }
 
 

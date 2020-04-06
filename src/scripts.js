@@ -15,7 +15,7 @@ window.onload = () => {
   keyboard.classList.add('keyboard');
   document.querySelector('.wrapper').append(keyboard);
   const description = document.createElement('h1');
-  description.innerText = 'смена языка - leftCtrl+leftAlt\nСоздана на операционной системе Windows\n\nБУКВЫ ПРИ ШИФТЕ ИЛИ КАПСЕ НЕ ПОДНИМАЮТСЯ - ЭТО НЕ СЧИТАЕТСЯ ОШИБКОЙ, ТАКОВ ДИЗАЙН И ТАКОЙ ДЛЯ КЛАВИАТУРЫ';
+  description.innerText = 'смена языка - leftCtrl+leftAlt\nСоздана на операционной системе Windows';
   description.classList.add('h1');
   document.querySelector('.wrapper').append(description);
 
