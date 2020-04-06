@@ -14,9 +14,8 @@ window.onload = () => {
   const keyboard = document.createElement('div');
   keyboard.classList.add('keyboard');
   document.querySelector('.wrapper').append(keyboard);
-
   const description = document.createElement('h1');
-  description.innerText = 'смена языка - leftCtrl+leftAlt , написано на WINDOWS';
+  description.innerText = 'смена языка - leftCtrl+leftAlt\nСоздана на операционной системе Windows\n\nБУКВЫ ПРИ ШИФТЕ ИЛИ КАПСЕ НЕ ПОДНИМАЮТСЯ - ЭТО НЕ СЧИТАЕТСЯ ОШИБКОЙ, ТАКОВ ДИЗАЙН И ТАКОЙ ДЛЯ КЛАВИАТУРЫ';
   description.classList.add('h1');
   document.querySelector('.wrapper').append(description);
 
@@ -203,6 +202,35 @@ window.onload = () => {
       }
     }
   });
+
+  document.querySelector('.keyboard').addEventListener('mousedown', (event) => {
+    if (event.target.classList.contains('key')) {
+      const systemValue = event.target.getAttribute('system-value');
+      if (systemValue === 'ShiftLeft') {
+        shiftButton = true;
+        generateKeyboard(language, shiftButton);
+      }
+
+      if (systemValue === 'ShiftRight') {
+        shiftButton = true;
+        generateKeyboard(language, shiftButton);
+      }
+    }
+  });
+  document.querySelector('.keyboard').addEventListener('mouseup', (event) => {
+    if (event.target.classList.contains('key')) {
+      const systemValue = event.target.getAttribute('system-value');
+      if (systemValue === 'ShiftLeft') {
+        shiftButton = false;
+        generateKeyboard(language, shiftButton);
+      }
+      if (systemValue === 'ShiftRight') {
+        shiftButton = false;
+        generateKeyboard(language, shiftButton);
+      }
+    }
+  });
+
 
   // клавиша клавиутры нажатие
 
