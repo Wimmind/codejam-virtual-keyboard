@@ -16,7 +16,7 @@ window.onload = () => {
   document.querySelector('.wrapper').append(keyboard);
 
   const description = document.createElement('h1');
-  description.innerText = 'смена языка - leftCtrl+leftAlt';
+  description.innerText = 'смена языка - leftCtrl+leftAlt , написано на WINDOWS';
   description.classList.add('h1');
   document.querySelector('.wrapper').append(description);
 

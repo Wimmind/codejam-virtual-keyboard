@@ -1,1 +1,1 @@
-# [текущий вар](https://nervous-noyce-ccfc65.netlify.com)
+# [текущий вар](https://condescending-swanson-197001.netlify.com/)
