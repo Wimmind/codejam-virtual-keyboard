@@ -164,7 +164,12 @@ window.onload = () => {
   document.querySelector('.keyboard').addEventListener('click', (event) => {
     if (event.target.classList.contains('key')) {
       document.querySelector('.textarea').focus();
+    }
+  });
 
+  document.querySelector('.keyboard').addEventListener('mousedown', (event) => {
+    document.querySelector('.textarea').focus();
+    if (event.target.classList.contains('key')) {
       event.target.classList.add('active');
       setTimeout(() => { event.target.classList.remove('active'); }, 300);
 
@@ -200,12 +205,6 @@ window.onload = () => {
           capsLockButton = false;
         }
       }
-    }
-  });
-
-  document.querySelector('.keyboard').addEventListener('mousedown', (event) => {
-    if (event.target.classList.contains('key')) {
-      const systemValue = event.target.getAttribute('system-value');
       if (systemValue === 'ShiftLeft') {
         shiftButton = true;
         generateKeyboard(language, shiftButton);
@@ -219,6 +218,7 @@ window.onload = () => {
   });
   document.querySelector('.keyboard').addEventListener('mouseup', (event) => {
     if (event.target.classList.contains('key')) {
+      event.target.classList.remove('active');
       const systemValue = event.target.getAttribute('system-value');
       if (systemValue === 'ShiftLeft') {
         shiftButton = false;
