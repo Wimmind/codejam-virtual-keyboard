@@ -58,6 +58,7 @@ window.onload = () => {
   let ctrlAltPressed = false;
 
   for (let i = 1; i <= 5; i += 1) {
+    let lang;
     const keyboardRow = document.createElement('div');
     keyboardRow.classList.add('keyboard-row', `keyboard__row-${i}`);
     document.querySelector('.keyboard').append(keyboardRow);
@@ -81,15 +82,15 @@ window.onload = () => {
       }
 
       if (localStorage.getItem('language') === '1') {
-        language = 1;
+        lang = 1;
       }
       if (localStorage.getItem('language') === '3') {
-        language = 3;
+        lang = 3;
       }
 
-      buttonKey.textContent = button[language];
+      buttonKey.textContent = button[lang];
       if (!buttonKey.classList.contains('system')) {
-        buttonKey.setAttribute('value', button[language]);
+        buttonKey.setAttribute('value', button[lang]);
         buttonKey.setAttribute('system-value', button[0]);
       } else {
         buttonKey.setAttribute('value', '');
@@ -113,13 +114,12 @@ window.onload = () => {
 
     for (let i = 0; i < 64; i += 1) {
       if (!shift) {
-          buttonMas[i].textContent = keyB[i][item];
+        buttonMas[i].textContent = keyB[i][item];
         if (!buttonMas[i].classList.contains('system')) {
-          if (capsLockButton){
-            buttonMas[i].textContent=buttonMas[i].textContent.toUpperCase();
-          }
-          else {
-            buttonMas[i].textContent=buttonMas[i].textContent.toLowerCase();
+          if (capsLockButton) {
+            buttonMas[i].textContent = buttonMas[i].textContent.toUpperCase();
+          } else {
+            buttonMas[i].textContent = buttonMas[i].textContent.toLowerCase();
           }
           buttonMas[i].setAttribute('value', keyB[i][item]);
           buttonMas[i].setAttribute('system-value', keyB[i][0]);
