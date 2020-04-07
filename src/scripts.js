@@ -7,7 +7,7 @@ window.onload = () => {
   // текстареа
   const textarea = document.createElement('textarea');
   textarea.classList.add('textarea');
-  //textarea.setAttribute('tabindex', '0');
+  // textarea.setAttribute('tabindex', '0');
   document.querySelector('.wrapper').append(textarea);
 
   // клава
@@ -142,24 +142,26 @@ window.onload = () => {
 
 
   const backspaceFunc = () => {
-    let startText = textarea.selectionStart;
-    if (textarea.selectionStart != textarea.selectionEnd) {
-      textarea.value = textarea.value.slice(0, textarea.selectionStart) + textarea.value.slice(textarea.selectionEnd);
+    const startText = textarea.selectionStart;
+    if (textarea.selectionStart !== textarea.selectionEnd) {
+      textarea.value = textarea.value.slice(0, textarea.selectionStart)
+      + textarea.value.slice(textarea.selectionEnd);
       textarea.selectionEnd = startText;
     } else if (textarea.selectionStart > 0) {
-      textarea.value = textarea.value.slice(0, textarea.selectionStart - 1) + textarea.value.slice(textarea.selectionEnd);
+      textarea.value = textarea.value.slice(0, textarea.selectionStart - 1)
+      + textarea.value.slice(textarea.selectionEnd);
       textarea.selectionStart = startText - 1;
       textarea.selectionEnd = startText - 1;
     }
   };
   const tabFunc = () => {
-    textarea.setRangeText('    ',textarea.selectionStart, textarea.selectionEnd, "end");
+    textarea.setRangeText('    ', textarea.selectionStart, textarea.selectionEnd, 'end');
   };
   const spaceFunc = () => {
-    textarea.setRangeText(' ',textarea.selectionStart, textarea.selectionEnd, "end");
+    textarea.setRangeText(' ', textarea.selectionStart, textarea.selectionEnd, 'end');
   };
   const enterFunc = () => {
-    textarea.setRangeText('\n',textarea.selectionStart, textarea.selectionEnd, "end");
+    textarea.setRangeText('\n', textarea.selectionStart, textarea.selectionEnd, 'end');
   };
   const deleteFunc = () => {
     const startText = textarea.selectionStart;
@@ -168,7 +170,8 @@ window.onload = () => {
     if (startText === endText) {
       longText = 1;
     }
-    textarea.value = textarea.value.slice(0, startText) + textarea.value.slice(startText + longText);
+    textarea.value = textarea.value.slice(0, startText)
+    + textarea.value.slice(startText + longText);
     textarea.selectionStart = startText;
     textarea.selectionEnd = startText;
   };
@@ -188,9 +191,9 @@ window.onload = () => {
       setTimeout(() => { event.target.classList.remove('active'); }, 300);
 
       if (!capsLockButton) {
-        textarea.setRangeText(event.target.getAttribute('value'),textarea.selectionStart, textarea.selectionEnd, "end");
+        textarea.setRangeText(event.target.getAttribute('value'), textarea.selectionStart, textarea.selectionEnd, 'end');
       } else {
-        textarea.setRangeText(event.target.getAttribute('value').toUpperCase(),textarea.selectionStart, textarea.selectionEnd, "end");
+        textarea.setRangeText(event.target.getAttribute('value').toUpperCase(), textarea.selectionStart, textarea.selectionEnd, 'end');
       }
 
       const systemValue = event.target.getAttribute('system-value');
@@ -260,9 +263,9 @@ window.onload = () => {
     const systemValue = buttonKey.getAttribute('system-value');
 
     if (!capsLockButton) {
-      textarea.setRangeText(buttonKey.getAttribute('value'),textarea.selectionStart, textarea.selectionEnd, "end");
+      textarea.setRangeText(buttonKey.getAttribute('value'), textarea.selectionStart, textarea.selectionEnd, 'end');
     } else {
-      textarea.setRangeText(buttonKey.getAttribute('value').toUpperCase(),textarea.selectionStart, textarea.selectionEnd, "end");
+      textarea.setRangeText(buttonKey.getAttribute('value').toUpperCase(), textarea.selectionStart, textarea.selectionEnd, 'end');
     }
 
     if (systemValue === 'Backspace') {
