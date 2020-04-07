@@ -113,8 +113,14 @@ window.onload = () => {
 
     for (let i = 0; i < 64; i += 1) {
       if (!shift) {
-        buttonMas[i].textContent = keyB[i][item];
+          buttonMas[i].textContent = keyB[i][item];
         if (!buttonMas[i].classList.contains('system')) {
+          if (capsLockButton){
+            buttonMas[i].textContent=buttonMas[i].textContent.toUpperCase();
+          }
+          else {
+            buttonMas[i].textContent=buttonMas[i].textContent.toLowerCase();
+          }
           buttonMas[i].setAttribute('value', keyB[i][item]);
           buttonMas[i].setAttribute('system-value', keyB[i][0]);
         } else {
@@ -284,6 +290,7 @@ window.onload = () => {
         document.querySelector('.circleCapsLock').classList.remove('capsActive');
         capsLockButton = false;
       }
+      generateKeyboard(language, shiftButton);
     }
 
     if (systemValue === 'AltLeft') {
