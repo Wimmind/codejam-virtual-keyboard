@@ -58,7 +58,7 @@ window.onload = () => {
   let ctrlAltPressed = false;
 
   for (let i = 1; i <= 5; i += 1) {
-    let lang;
+    let lang = 1;
     const keyboardRow = document.createElement('div');
     keyboardRow.classList.add('keyboard-row', `keyboard__row-${i}`);
     document.querySelector('.keyboard').append(keyboardRow);
