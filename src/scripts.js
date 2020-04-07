@@ -7,7 +7,7 @@ window.onload = () => {
   // текстареа
   const textarea = document.createElement('textarea');
   textarea.classList.add('textarea');
-  textarea.setAttribute('tabindex', '0');
+  //textarea.setAttribute('tabindex', '0');
   document.querySelector('.wrapper').append(textarea);
 
   // клава
@@ -142,27 +142,35 @@ window.onload = () => {
 
 
   const backspaceFunc = () => {
-    document.querySelector('.textarea').value = document.querySelector('.textarea').value.slice(0, -1);
+    let startText = textarea.selectionStart;
+    if (textarea.selectionStart != textarea.selectionEnd) {
+      textarea.value = textarea.value.slice(0, textarea.selectionStart) + textarea.value.slice(textarea.selectionEnd);
+      textarea.selectionEnd = startText;
+    } else if (textarea.selectionStart > 0) {
+      textarea.value = textarea.value.slice(0, textarea.selectionStart - 1) + textarea.value.slice(textarea.selectionEnd);
+      textarea.selectionStart = startText - 1;
+      textarea.selectionEnd = startText - 1;
+    }
   };
   const tabFunc = () => {
-    document.querySelector('.textarea').value += '    ';
+    textarea.setRangeText('    ',textarea.selectionStart, textarea.selectionEnd, "end");
   };
   const spaceFunc = () => {
-    document.querySelector('.textarea').value += ' ';
+    textarea.setRangeText(' ',textarea.selectionStart, textarea.selectionEnd, "end");
   };
   const enterFunc = () => {
-    document.querySelector('.textarea').value += '\n';
+    textarea.setRangeText('\n',textarea.selectionStart, textarea.selectionEnd, "end");
   };
   const deleteFunc = () => {
-    const startText = document.querySelector('.textarea').selectionStart;
-    const endText = document.querySelector('.textarea').selectionEnd;
+    const startText = textarea.selectionStart;
+    const endText = textarea.selectionEnd;
     let longText = endText - startText;
     if (startText === endText) {
       longText = 1;
     }
-    document.querySelector('.textarea').value = document.querySelector('.textarea').value.slice(0, startText) + document.querySelector('.textarea').value.slice(startText + longText);
-    document.querySelector('.textarea').selectionStart = startText;
-    document.querySelector('.textarea').selectionEnd = startText;
+    textarea.value = textarea.value.slice(0, startText) + textarea.value.slice(startText + longText);
+    textarea.selectionStart = startText;
+    textarea.selectionEnd = startText;
   };
 
   // клик мышь
@@ -180,9 +188,9 @@ window.onload = () => {
       setTimeout(() => { event.target.classList.remove('active'); }, 300);
 
       if (!capsLockButton) {
-        document.querySelector('.textarea').value += event.target.getAttribute('value');
+        textarea.setRangeText(event.target.getAttribute('value'),textarea.selectionStart, textarea.selectionEnd, "end");
       } else {
-        document.querySelector('.textarea').value += event.target.getAttribute('value').toUpperCase();
+        textarea.setRangeText(event.target.getAttribute('value').toUpperCase(),textarea.selectionStart, textarea.selectionEnd, "end");
       }
 
       const systemValue = event.target.getAttribute('system-value');
@@ -252,9 +260,9 @@ window.onload = () => {
     const systemValue = buttonKey.getAttribute('system-value');
 
     if (!capsLockButton) {
-      document.querySelector('.textarea').value += buttonKey.getAttribute('value');
+      textarea.setRangeText(buttonKey.getAttribute('value'),textarea.selectionStart, textarea.selectionEnd, "end");
     } else {
-      document.querySelector('.textarea').value += buttonKey.getAttribute('value').toUpperCase();
+      textarea.setRangeText(buttonKey.getAttribute('value').toUpperCase(),textarea.selectionStart, textarea.selectionEnd, "end");
     }
 
     if (systemValue === 'Backspace') {
